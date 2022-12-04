@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SaveLink</string>
+    <string name="home_title">Home</string>
+    <string name="favorite">Favorites</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
