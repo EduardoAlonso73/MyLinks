@@ -13,7 +13,7 @@ class SaveLinkRepository {
 
     val listAllLink: LiveData<MutableList<LinkEnt>> = liveData {
         val linkEnt = accessDao.getAllLinks()
-        emitSource(linkEnt.map { it.sortedBy { it.id }.toMutableList() })
+        emitSource(linkEnt.map { it.sortedBy { it.id }.asReversed().toMutableList() })
     }
 
     suspend fun saveLink(link: LinkEnt) = withContext(Dispatchers.IO) {
