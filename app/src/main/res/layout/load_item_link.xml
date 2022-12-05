@@ -9,13 +9,13 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
+        android:id="@+id/cardViewLoander"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="6dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="5dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +33,10 @@
                 app:shapeAppearanceOverlay="@style/border_radius"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="@dimen/common_padding_min"
+                android:background="#C9C8C9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_image" />
+                 />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -45,76 +46,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/linkImage">
 
-                <TextView
+                <FrameLayout
                     android:id="@+id/linkTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="15dp"
                     android:layout_marginHorizontal="12dp"
                     android:layout_marginVertical="10dp"
-                    android:maxLines="1"
-                    android:text="Cargando..."
-                    android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:maxLines="1"        android:background="#C9C8C9"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/linkImage"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
+                <FrameLayout
                     android:id="@+id/linkDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="210dp"
+                    android:layout_height="60dp"
                     android:layout_marginHorizontal="12dp"
-                    android:maxLines="3"
+                    android:background="#C9C8C9"
                     app:layout_constraintEnd_toStartOf="@id/linkImage"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linkTitle"
-                    tools:text="Es decir, si ejecuto el comando git init pero después lo
-                quiero borrar o cancelar como se haría? . Yo lo que hice fue irme a elementos ocultos y" />
+                    app:layout_constraintTop_toBottomOf="@id/linkTitle"/>
 
-                <TextView
+                <FrameLayout
                     android:id="@+id/linkSiteName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="15dp"
                     android:layout_marginHorizontal="12dp"
                     android:layout_marginTop="@dimen/common_padding_min"
-                    android:background="@drawable/shape_type"
                     android:paddingHorizontal="@dimen/common_padding_min"
                     android:text="Type"
+                    android:background="#C9C8C9"
                     app:layout_constraintEnd_toStartOf="@+id/linkImage"
                     app:layout_constraintStart_toStartOf="@id/linkDescription"
                     app:layout_constraintTop_toBottomOf="@+id/linkDescription" />
             </LinearLayout>
 
 
-            <ImageButton
-                android:id="@+id/ibRemove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="@dimen/common_padding_min"
-                android:background="?attr/selectableItemBackground"
-                android:src="@drawable/ic_remove"
-                app:layout_constraintEnd_toStartOf="@+id/ibShareLink"
-                app:layout_constraintTop_toTopOf="@+id/ibShareLink"
-                app:layout_constraintBottom_toBottomOf="@id/ibShareLink"/>
-            <ImageButton
-                android:id="@+id/ibShareLink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="@dimen/common_padding_min"
-                android:layout_marginEnd="8dp"
-                android:background="?attr/selectableItemBackground"
-                android:src="@drawable/ic_reply"
-                app:layout_constraintBottom_toBottomOf="@+id/cbIsFavorite"
-                app:layout_constraintEnd_toStartOf="@+id/cbIsFavorite"
-                app:layout_constraintTop_toTopOf="@+id/cbIsFavorite" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <FrameLayout
                 android:id="@+id/cbIsFavorite"
-                android:layout_width="35dp"
-                android:layout_height="25dp"
-                android:button="@drawable/ic_line_favorite"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:background="#C9C8C9"
+                android:layout_marginVertical="@dimen/common_padding_min"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/linkImage"
                 app:layout_constraintTop_toBottomOf="@+id/linkImage"
@@ -124,14 +98,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-      <ProgressBar
-           android:id="@+id/progress_circular"
-           tools:visibility="visible"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-          app:layout_constraintBottom_toBottomOf="@id/card"
-          app:layout_constraintStart_toStartOf="@id/card"
-          android:elevation="12dp"/>
+   >
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
