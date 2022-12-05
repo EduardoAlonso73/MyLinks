@@ -32,6 +32,8 @@ class ListLinkAdapter(private var listener: IOnClickListener) :
         with(holder as ViewHolder) {
             with(binding) {
                 setListener(itemLinks)
+                binding.card.visibility=View.INVISIBLE
+                binding.viewLoading.visibility=View.VISIBLE
                 AuxOpenGraphCallback(mContext, binding).apply {
                     openGraphParser.parse(itemLinks.link)
                     //progressCircular.visibility=if(isLoading)View.VISIBLE else View.INVISIBLE

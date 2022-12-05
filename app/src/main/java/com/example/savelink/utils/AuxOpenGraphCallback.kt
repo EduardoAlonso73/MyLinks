@@ -1,9 +1,14 @@
 package com.example.savelink.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.savelink.R
 import com.example.savelink.databinding.ItemLinkBinding
 import com.kedia.ogparser.OpenGraphCacheProvider
@@ -29,16 +34,40 @@ class AuxOpenGraphCallback(val context: Context, val binding: ItemLinkBinding) :
             with(binding) {
                 linkTitle.text = openGraphResult.title
                 linkDescription.text = openGraphResult.description
-                linkSiteName.text = openGraphResult.siteName
+                linkSiteName.text = if(openGraphResult.siteName.equals("null"))"No Site name " else openGraphResult.siteName
+
             }
             Glide.with(context)
+                .asBitmap()
                 .load(openGraphResult.image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .error(R.drawable.ic_error_img)
-                .placeholder(R.drawable.ic_load)
-                .into(binding.linkImage)
-            isLoading = false
+                .into(object:CustomTarget<Bitmap>(90,110){
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                       binding.linkImage.setImageBitmap(resource)
+                        binding.viewLoading.visibility=View.INVISIBLE
+                        binding.card.visibility=View.VISIBLE
+                    }
+
+                    override fun onLoadStarted(placeholder: Drawable?) {
+                        binding.linkImage.setImageResource(R.drawable.ic_load)
+                        binding.viewLoading.visibility=View.INVISIBLE
+                        binding.card.visibility=View.VISIBLE
+                    }
+
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        binding.linkImage.setImageResource(R.drawable.ic_error_img)
+                        binding.viewLoading.visibility=View.INVISIBLE
+                        binding.card.visibility=View.VISIBLE
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        binding.linkImage.setImageResource(R.drawable.ic_defaul_img)
+                    }
+
+
+                })
+
         }
 
 
