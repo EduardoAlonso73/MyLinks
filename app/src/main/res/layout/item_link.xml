@@ -16,6 +16,7 @@
         android:layout_marginVertical="6dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="5dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,14 +125,35 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!--   <ProgressBar
-           android:id="@+id/progress_circular"
-           android:visibility="invisible"
-           app:layout_constraintStart_toStartOf="@id/card"
-           app:layout_constraintTop_toTopOf="@id/card"
-           android:layout_width="wrap_content"
-           android:elevation="10dp"
-           android:layout_height="wrap_content"/>-->
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/viewLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="6dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_auto_start="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <include layout="@layout/load_item_link"/>
+        </LinearLayout>
+
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
