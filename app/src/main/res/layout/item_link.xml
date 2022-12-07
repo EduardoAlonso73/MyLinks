@@ -88,6 +88,17 @@
 
 
             <ImageButton
+                android:id="@+id/ibBookAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginVertical="@dimen/common_padding_min"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_bookmark_add"
+                app:layout_constraintBottom_toBottomOf="@+id/ibRemove"
+                app:layout_constraintEnd_toStartOf="@+id/ibRemove"
+                app:layout_constraintTop_toTopOf="@+id/ibRemove" />
+            <ImageButton
                 android:id="@+id/ibRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
