@@ -1,4 +1,4 @@
-package com.example.savelink.ui.mainModule.adapter
+package com.example.savelink.ui.favoriteModule.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.example.savelink.utils.AuxOpenGraphCallback
 import com.example.savelink.utils.IOnClickListener
 
 
-class ListLinkAdapter(private var listener: IOnClickListener) :
+class LinkFavoriteAdapter(private var listener: IOnClickListener) :
     ListAdapter<LinkEnt, RecyclerView.ViewHolder>(StoreDiffCallback()) { 
     private lateinit var mContext: Context
     private lateinit var binding: ItemLinkBinding
@@ -28,19 +28,17 @@ class ListLinkAdapter(private var listener: IOnClickListener) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemLinks = getItem(position)
+        val itemLinksFavorite = getItem(position)
         with(holder as ViewHolder) {
             with(binding) {
-                setListener(itemLinks)
+                setListener(itemLinksFavorite)
                 binding.card.visibility=View.INVISIBLE
                 binding.viewLoading.visibility=View.VISIBLE
                 AuxOpenGraphCallback(mContext, binding).apply {
-                    openGraphParser.parse(itemLinks.link)
-                    //progressCircular.visibility=if(isLoading)View.VISIBLE else View.INVISIBLE
-                    cbIsFavorite.isChecked=itemLinks.isFavorite
+                    openGraphParser.parse(itemLinksFavorite.link)
+                    cbIsFavorite.isChecked=itemLinksFavorite.isFavorite
                 }
             }
-
         }
     }
 
