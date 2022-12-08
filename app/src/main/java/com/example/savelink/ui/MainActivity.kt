@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.savelink.R
 import com.example.savelink.databinding.ActivityMainBinding
 import com.example.savelink.ui.addModule.AddDialogLinkFragment
-import com.example.savelink.ui.favoriteModule.favoriteFragment
+import com.example.savelink.ui.favoriteModule.FavoriteFragment
 import com.example.savelink.ui.mainModule.HomeFragment
 
 
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNav() {
         val mFragmentManager = supportFragmentManager
         val homeFragment = HomeFragment()
-        val favoriteFragment = favoriteFragment()
+        val favoriteFragment = FavoriteFragment()
 
 
         mActivityFragment = homeFragment
