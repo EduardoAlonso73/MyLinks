@@ -1,21 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".ui.mainModule.HomeFragment">
 
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Home" />
 
-     <androidx.recyclerview.widget.RecyclerView
-         android:id="@+id/recyclerview"
-         android:layout_width="0dp"
-         tools:listitem="@layout/item_link"
-         android:layout_height="match_parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintTop_toTopOf="parent"/>
+         <!--<androidx.appcompat.widget.SearchView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/common_padding_min"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTitle">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_add"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_category" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llCategory"
+        tools:listitem="@layout/item_link" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
