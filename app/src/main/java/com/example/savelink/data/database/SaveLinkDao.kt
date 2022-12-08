@@ -12,6 +12,9 @@ import com.example.savelink.data.entities.LinkEnt
 interface SaveLinkDao {
     @Query("SELECT * FROM SaveLinkEnt")
     fun getAllLinks():LiveData<MutableList<LinkEnt>>
+
+    @Query("SELECT * FROM SaveLinkEnt WHERE isFavorite=1")
+    fun getAllFavoriteLinks():LiveData<MutableList<LinkEnt>?>
     @Insert
     suspend fun savelink(saveLinkEnt: LinkEnt)
     @Update
