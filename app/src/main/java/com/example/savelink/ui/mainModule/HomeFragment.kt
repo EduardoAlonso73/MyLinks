@@ -14,14 +14,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.savelink.data.entities.CategoryEnt
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentHomeBinding
+import com.example.savelink.ui.categoryModule.Adapter.CategoryAdapter
 import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
 import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
 import com.example.savelink.utils.IOnClickListener
 
 class HomeFragment : Fragment(), IOnClickListener {
     private lateinit var mAdapter: ListLinkAdapter
+    private lateinit var mAdapterCategory: CategoryAdapter
     private lateinit var mGridLayout: GridLayoutManager
     private lateinit var mBinding: FragmentHomeBinding
     private lateinit var viewModelProvide: GetLinkViewModel
@@ -41,6 +45,7 @@ class HomeFragment : Fragment(), IOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setuprvCatogory()
         setupViewModel()
     }
 
@@ -50,6 +55,24 @@ class HomeFragment : Fragment(), IOnClickListener {
         viewModelProvide.getListLink().observe(viewLifecycleOwner) {
             mAdapter.submitList(it)
         }
+    }
+    private fun setuprvCatogory(){
+        mAdapterCategory = CategoryAdapter()
+        mGridLayout = GridLayoutManager(appContext, 1)
+        mBinding.rvCategory.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = mAdapterCategory
+        }
+        mAdapterCategory.submitList(mutableListOf(
+            CategoryEnt(1,"Categori1"),
+            CategoryEnt(2,"Categori1"),
+            CategoryEnt(3,"Categori1"),
+            CategoryEnt(4,"Categori1"),
+            CategoryEnt(5,"Categori1"),
+            CategoryEnt(6,"Categori1"),
+
+        ))
     }
 
     private fun setupRecyclerView() {
