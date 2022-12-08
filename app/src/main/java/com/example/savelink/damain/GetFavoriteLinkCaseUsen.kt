@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import com.example.savelink.data.database.entities.SaveLinkRepository
 import com.example.savelink.data.entities.LinkEnt
 
-class GetListLinkCaseUsen {
+class GetFavoriteLinkCaseUsen {
     private val domainRepository by lazy { SaveLinkRepository()}
-    fun getLink(): LiveData<MutableList<LinkEnt>> =domainRepository.listAllLink
+     fun getFavoriteLink(): LiveData<MutableList<LinkEnt>> =domainRepository.getFavoriteLink
+
 }
