@@ -16,6 +16,13 @@ class SaveLinkRepository {
         emitSource(linkEnt.map { it.sortedBy { it.id }.asReversed().toMutableList() })
     }
 
+    val getFavoriteLink: LiveData<MutableList<LinkEnt>> = liveData {
+        val linkEnt = accessDao.getAllFavoriteLinks()
+        emitSource(linkEnt.map { it?.sortedBy { it.id }?.asReversed()?.toMutableList() ?: mutableListOf() })
+    }
+
+
+
     suspend fun saveLink(link: LinkEnt) = withContext(Dispatchers.IO) {
         accessDao.savelink(link)
     }
