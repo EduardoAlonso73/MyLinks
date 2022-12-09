@@ -62,7 +62,7 @@ class AuxOpenGraphCallback(val context: Context, val binding: ItemLinkBinding) :
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        binding.linkImage.setImageResource(R.drawable.ic_defaul_img)
+                        binding.linkImage.setImageResource(R.drawable.ic_load)
                     }
 
 
