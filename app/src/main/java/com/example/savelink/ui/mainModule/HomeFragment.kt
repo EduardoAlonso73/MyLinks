@@ -28,7 +28,7 @@ class HomeFragment : Fragment(), IOnClickListener {
     private lateinit var mAdapterCategory: CategoryAdapter
     private lateinit var mGridLayout: GridLayoutManager
     private lateinit var mBinding: FragmentHomeBinding
-    private lateinit var viewModelProvide: GetLinkViewModel
+    private val viewModelProvide: GetLinkViewModel by lazy {  ViewModelProvider(requireActivity())[GetLinkViewModel::class.java] }
     private lateinit var appContext: Context
 
 
@@ -45,18 +45,16 @@ class HomeFragment : Fragment(), IOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        setuprvCatogory()
+        setupRVCategory()
         setupViewModel()
     }
 
     private fun setupViewModel() {
-        viewModelProvide = ViewModelProvider(requireActivity())[GetLinkViewModel::class.java]
-
         viewModelProvide.getListLink().observe(viewLifecycleOwner) {
             mAdapter.submitList(it)
         }
     }
-    private fun setuprvCatogory(){
+    private fun setupRVCategory(){
         mAdapterCategory = CategoryAdapter()
         mGridLayout = GridLayoutManager(appContext, 1)
         mBinding.rvCategory.apply {
