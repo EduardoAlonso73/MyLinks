@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="start"
-        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="@dimen/common_padding_min"
+       android:layout_marginStart="10dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
@@ -22,41 +23,15 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="Home" />
-
-         <!--<androidx.appcompat.widget.SearchView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             />-->
-
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/common_padding_min"
-        android:layout_marginHorizontal="5dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llTitle">
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_add"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="1"
-            tools:listitem="@layout/item_category" />
-
-    </LinearLayout>
+            tools:listitem="@layout/item_category"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llTitle"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -66,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llCategory"
+        app:layout_constraintTop_toBottomOf="@+id/rvCategory"
         tools:listitem="@layout/item_link" />
 
 
