@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.favoriteModule.FavoriteFragment">
+    tools:context=".ui.favoriteModule.FavoriteFragment"
+    android:background="@color/white"
+    android:focusable="true"
+    android:clickable="true">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewfv"
