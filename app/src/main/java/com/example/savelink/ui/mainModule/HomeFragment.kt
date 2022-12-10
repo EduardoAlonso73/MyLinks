@@ -18,13 +18,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savelink.data.entities.CategoryEnt
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentHomeBinding
+import com.example.savelink.ui.addModule.AdapterLink
 import com.example.savelink.ui.categoryModule.Adapter.CategoryAdapter
 import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
 import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
+import com.example.savelink.utils.IOnCategoryListener
 import com.example.savelink.utils.IOnClickListener
+import com.example.savelink.utils.SaveLinkApplication
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment(), IOnClickListener {
-    private lateinit var mAdapter: ListLinkAdapter
+class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
+    //private lateinit var mAdapter: ListLinkAdapter
+    private lateinit var mAdapter: AdapterLink
     private lateinit var mAdapterCategory: CategoryAdapter
     private lateinit var mGridLayout: GridLayoutManager
     private lateinit var mBinding: FragmentHomeBinding
@@ -47,37 +54,44 @@ class HomeFragment : Fragment(), IOnClickListener {
         setupRecyclerView()
         setupRVCategory()
         setupViewModel()
+        swipeRefres()
+    }
+
+    private fun swipeRefres() {
+        mBinding.swipe.setOnRefreshListener {
+            viewModelProvide.loadListLink()
+            Toast.makeText(requireContext(), "Todo los link", Toast.LENGTH_SHORT).show()
+            mBinding.swipe.isRefreshing=false
+        }
     }
 
     private fun setupViewModel() {
-        viewModelProvide.getListLink().observe(viewLifecycleOwner) {
-            mAdapter.submitList(it)
+        viewModelProvide.loadListLink()
+        viewModelProvide.getLink.observe(viewLifecycleOwner) {
+            mAdapter.setList(it)
+        }
+
+        viewModelProvide.getListCategory().observe(viewLifecycleOwner){
+            mAdapterCategory.submitList(it)
+
         }
     }
     private fun setupRVCategory(){
-        mAdapterCategory = CategoryAdapter()
+        mAdapterCategory = CategoryAdapter(this)
         mGridLayout = GridLayoutManager(appContext, 1)
         mBinding.rvCategory.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = mAdapterCategory
         }
-        mAdapterCategory.submitList(mutableListOf(
-            CategoryEnt(1,"Categori1"),
-            CategoryEnt(2,"Categori1"),
-            CategoryEnt(3,"Categori1"),
-            CategoryEnt(4,"Categori1"),
-            CategoryEnt(5,"Categori1"),
-            CategoryEnt(6,"Categori1"),
 
-        ))
     }
 
     private fun setupRecyclerView() {
-        mAdapter = ListLinkAdapter(this)
+        mAdapter = AdapterLink(mutableListOf(),this)
         mGridLayout = GridLayoutManager(appContext, 1)
         mBinding.recyclerview.apply {
-            setHasFixedSize(true)
+            //setHasFixedSize(true)
             layoutManager = mGridLayout
             adapter = mAdapter
         }
@@ -131,6 +145,14 @@ class HomeFragment : Fragment(), IOnClickListener {
         Toast.makeText(appContext, "Copied", Toast.LENGTH_SHORT).show()
     }
 
+    override fun bookAdA(linkEnt: LinkEnt) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val testCategoryEnt=CategoryEnt(category = "Medium")
+            SaveLinkApplication.databaseCategory.categoryLink().addCategoryLink(testCategoryEnt)
+        }
+
+    }
+
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 ------- Go to WebSite ---------
@@ -145,6 +167,11 @@ class HomeFragment : Fragment(), IOnClickListener {
         }
 
 
+    }
+
+    override fun onClickCategory(categoryEnt: CategoryEnt) {
+       viewModelProvide.getListByCategory(categoryEnt.category)
+        //Toast.makeText(requireContext(), categoryEnt.category, Toast.LENGTH_SHORT).show()
     }
 
 }
