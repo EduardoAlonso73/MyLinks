@@ -18,9 +18,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"
             android:textStyle="bold"
             android:text="Home" />
     </LinearLayout>
@@ -29,6 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="1"
+            app:layout_constraintBottom_toTopOf="@id/recyclerview"
+            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="2dp"
             tools:listitem="@layout/item_category"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llTitle"/>
