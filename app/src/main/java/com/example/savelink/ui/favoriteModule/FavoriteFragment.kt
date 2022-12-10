@@ -63,4 +63,5 @@ class FavoriteFragment : Fragment(),IOnClickListener {
     override fun shareLink(link: String) {}
 
     override fun copiClipboard(link: String) {}
+    override fun bookAdA(linkEnt: LinkEnt) {}
 }
