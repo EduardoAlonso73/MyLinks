@@ -8,4 +8,5 @@ interface IOnClickListener {
     fun removeLink(linkEnt: LinkEnt)
     fun shareLink(link: String)
     fun copiClipboard(link: String)
+    fun bookAdA(linkEnt: LinkEnt)
 }
