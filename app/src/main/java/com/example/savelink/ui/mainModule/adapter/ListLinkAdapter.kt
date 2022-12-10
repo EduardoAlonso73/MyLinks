@@ -52,6 +52,7 @@ class ListLinkAdapter(private var listener: IOnClickListener) :
             binding.cbIsFavorite.setOnClickListener { listener.isFavorite(linkEnt) }
             binding.ibShareLink.setOnClickListener { listener.shareLink(linkEnt.link) }
             binding.ibRemove.setOnClickListener{ listener.removeLink(linkEnt) }
+            binding.ibBookAdd.setOnClickListener { listener.bookAdA(linkEnt) }
             binding.root.setOnLongClickListener{ listener.copiClipboard(linkEnt.link)
                 true}
         }

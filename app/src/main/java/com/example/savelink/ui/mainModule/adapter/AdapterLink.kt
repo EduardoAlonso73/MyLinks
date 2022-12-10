@@ -1,5 +1,6 @@
 package com.example.savelink.ui.addModule
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,51 +8,57 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.savelink.R
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.ItemLinkBinding
+import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
+import com.example.savelink.utils.AuxOpenGraphCallback
 import com.example.savelink.utils.IOnClickListener
 
 
 class AdapterLink(private var mLinks:MutableList<LinkEnt>, private val listener: IOnClickListener)
     : RecyclerView.Adapter<AdapterLink.ViewHolder>() {
+    private lateinit var mContext: Context
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
-        val view= LayoutInflater.from(parent.context).inflate(R.layout.item_link,parent,false)
+        mContext = parent.context
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_link, parent, false)
         return  ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-        val itemLinks=mLinks[position]
-        with(holder){
-            with(binding){
+        val itemLinks = mLinks[position]
+        with(holder) {
+            with(binding) {
                 setListener(itemLinks)
-               /* pwUrl.setURL(itemLinks.link) { data ->
-                    pwUrl.title(data.title)
-                    pwUrl.description(data.description)
-                    pwUrl.host(data.host)
-                    pwUrl.thumbnail(data.thumbnailURL)
-                    pwUrl.favor(data.favorURL)
-                }*/
-
+                binding.card.visibility=View.INVISIBLE
+                binding.viewLoading.visibility=View.VISIBLE
+                AuxOpenGraphCallback(mContext, binding).apply {
+                    openGraphParser.parse(itemLinks.link)
+                    cbIsFavorite.isChecked=itemLinks.isFavorite
+                }
             }
         }
     }
-
-    fun add(list: MutableList<LinkEnt>){
+    fun setList(list: MutableList<LinkEnt>){
         this.mLinks=list
-        //notifyDataSetChanged()
-        notifyItemChanged(mLinks.size-1)
-
+       notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = mLinks.size
 
 
-    inner class  ViewHolder(view: View):RecyclerView.ViewHolder(view){
-        val binding=ItemLinkBinding.bind(view)
-        fun setListener(saveLink: LinkEnt){
-            binding.root.setOnClickListener { listener.onClick(saveLink) }
-            //binding.cbDelete.setOnClickListener{ listener.onLongClick(itemEntity)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val binding = ItemLinkBinding.bind(view)
+        fun setListener(linkEnt: LinkEnt) {
+            binding.root.setOnClickListener { listener.onClick(linkEnt) }
+            binding.cbIsFavorite.setOnClickListener { listener.isFavorite(linkEnt) }
+            binding.ibShareLink.setOnClickListener { listener.shareLink(linkEnt.link) }
+            binding.ibRemove.setOnClickListener{ listener.removeLink(linkEnt) }
+            binding.ibBookAdd.setOnClickListener { listener.bookAdA(linkEnt) }
+            binding.root.setOnLongClickListener{ listener.copiClipboard(linkEnt.link)
+                true}
         }
     }
+
 }
 
 
