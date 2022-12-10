@@ -13,10 +13,11 @@ import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.ItemCategoryBinding
 import com.example.savelink.databinding.ItemLinkBinding
 import com.example.savelink.utils.AuxOpenGraphCallback
+import com.example.savelink.utils.IOnCategoryListener
 import com.example.savelink.utils.IOnClickListener
 
 
-class CategoryAdapter() :
+class CategoryAdapter(private val listener: IOnCategoryListener) :
     ListAdapter<CategoryEnt, RecyclerView.ViewHolder>(StoreDiffCallback()) {
     private lateinit var mContext: Context
     private lateinit var binding: ItemCategoryBinding
@@ -46,6 +47,7 @@ class CategoryAdapter() :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemCategoryBinding.bind(view)
         fun setListener(categoryEnt: CategoryEnt) {
+            binding.chipChat.setOnClickListener { listener.onClickCategory(categoryEnt) }
 
         }
     }
