@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savelink.data.entities.CategoryEnt
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentHomeBinding
-import com.example.savelink.ui.addModule.AdapterLink
 import com.example.savelink.ui.categoryModule.Adapter.CategoryAdapter
 import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
 import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
@@ -30,8 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
-    //private lateinit var mAdapter: ListLinkAdapter
-    private lateinit var mAdapter: AdapterLink
+    private lateinit var mAdapter: ListLinkAdapter
     private lateinit var mAdapterCategory: CategoryAdapter
     private lateinit var mGridLayout: GridLayoutManager
     private lateinit var mBinding: FragmentHomeBinding
@@ -39,11 +37,7 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     private lateinit var appContext: Context
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         appContext = requireContext().applicationContext
         mBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return mBinding.root
@@ -51,31 +45,51 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
         setupRVCategory()
-        setupViewModel()
+        setupRecyclerView()
+        setupInitViewModel()
         swipeRefres()
     }
 
-    private fun swipeRefres() {
-        mBinding.swipe.setOnRefreshListener {
-            viewModelProvide.loadListLink()
-            Toast.makeText(requireContext(), "Todo los link", Toast.LENGTH_SHORT).show()
-            mBinding.swipe.isRefreshing=false
+
+    /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+            ------- SETUP VIEW MODEL ---------
+    -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
+
+    private fun setupInitViewModel() {
+        setupViewModelGetLink()
+        setupViewModelGetCategory()
+        setupViewModeHeaderCtg()
+
+    }
+    private  fun setupViewModeHeaderCtg(){
+        viewModelProvide.headerCategory.observe(viewLifecycleOwner){
+            mBinding.tvHeaderCategory.setText(it)
         }
     }
 
-    private fun setupViewModel() {
-        viewModelProvide.loadListLink()
-        viewModelProvide.getLink.observe(viewLifecycleOwner) {
-            mAdapter.setList(it)
-        }
-
+    private  fun setupViewModelGetCategory(){
         viewModelProvide.getListCategory().observe(viewLifecycleOwner){
             mAdapterCategory.submitList(it)
 
         }
     }
+
+    private  fun setupViewModelGetLink(){
+        viewModelProvide.getListLink().observe(viewLifecycleOwner) {
+            mAdapter.submitList(it)
+        }
+    }
+    private fun setupViewModelLinkByCategory(category:String){
+        viewModelProvide.getListLinkCategory(category).observe(viewLifecycleOwner) {
+             mAdapter.submitList(it)
+        }
+    }
+
+    /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+            ------- SETUP RECYCLER VIEW ---------
+    -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
+
     private fun setupRVCategory(){
         mAdapterCategory = CategoryAdapter(this)
         mGridLayout = GridLayoutManager(appContext, 1)
@@ -88,7 +102,7 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     }
 
     private fun setupRecyclerView() {
-        mAdapter = AdapterLink(mutableListOf(),this)
+        mAdapter = ListLinkAdapter(this)
         mGridLayout = GridLayoutManager(appContext, 1)
         mBinding.recyclerview.apply {
             //setHasFixedSize(true)
@@ -97,6 +111,33 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
         }
     }
 
+
+    /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+            ------- Go to WebSite ---------
+    -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
+
+    private fun goToWebsite(website: String) {
+
+        if (website.isNotEmpty()) {
+            val openURL = Intent(Intent.ACTION_VIEW)
+            openURL.data = Uri.parse(website)
+            startActivity(openURL)
+        }
+    }
+
+    private fun swipeRefres() {
+        mBinding.swipe.setOnRefreshListener {
+            setupViewModelGetLink()
+            Toast.makeText(requireContext(), "Todo los link", Toast.LENGTH_SHORT).show()
+            viewModelProvide.setHeaderCategory("Home")
+            mBinding.swipe.isRefreshing=false
+        }
+    }
+
+
+    /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+              ------- OVERRIDE FUNCTION ---------
+      -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
 
     override fun onClick(linkEnt: LinkEnt) {
         AlertDialog.Builder(activity).apply {
@@ -153,25 +194,13 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
 
     }
 
-
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-------- Go to WebSite ---------
--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
-
-    private fun goToWebsite(website: String) {
-
-        if (website.isNotEmpty()) {
-            val openURL = Intent(Intent.ACTION_VIEW)
-            openURL.data = Uri.parse(website)
-            startActivity(openURL)
-        }
-
-
-    }
-
     override fun onClickCategory(categoryEnt: CategoryEnt) {
-       viewModelProvide.getListByCategory(categoryEnt.category)
-        //Toast.makeText(requireContext(), categoryEnt.category, Toast.LENGTH_SHORT).show()
+        setupViewModelLinkByCategory(categoryEnt.category)
+        viewModelProvide.setHeaderCategory(categoryEnt.category)
+
     }
+
+
+
 
 }

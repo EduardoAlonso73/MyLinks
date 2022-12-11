@@ -11,8 +11,8 @@ import com.example.savelink.data.entities.LinkEnt
 
 @Dao
 interface SaveLinkDao {
-    @Query("SELECT * from SaveLinkEnt order by id DESC")
-    suspend fun getAllLinks():MutableList<LinkEnt>
+    @Query("SELECT * from SaveLinkEnt ")
+     fun getAllLinks():LiveData<MutableList<LinkEnt>>
 
     @Query("SELECT * FROM SaveLinkEnt WHERE isFavorite=1")
     fun getAllFavoriteLinks():LiveData<MutableList<LinkEnt>?>
@@ -24,6 +24,6 @@ interface SaveLinkDao {
     fun deletelink(saveLinkEnt: LinkEnt):Int
 
     @Query("SELECT * FROM SaveLinkEnt WHERE category=:category")
-    suspend fun getLinkByCategory(category:String):MutableList<LinkEnt>
+     fun getLinkByCategory(category:String):LiveData<MutableList<LinkEnt>>
 
 }

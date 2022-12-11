@@ -14,23 +14,23 @@ class SaveLinkRepository {
     private val accessDao by lazy { SaveLinkApplication.database.saveLinkDao() }
     private val accessCategoryDao by lazy { SaveLinkApplication.databaseCategory.categoryLink() }
 
-    /*val listAllLink: LiveData<MutableList<LinkEnt>> = liveData {
+
+    val listAllLink: LiveData<MutableList<LinkEnt>> = liveData {
         val linkEnt = accessDao.getAllLinks()
         emitSource(linkEnt.map { it.sortedBy { it.id }.asReversed().toMutableList() })
-    }*/
-    suspend fun listAllLink()=accessDao.getAllLinks()
+    }
+
+    fun getLinkByCategory(categoryt: String): LiveData<MutableList<LinkEnt>> = liveData {
+        val getLinkByCategory = accessDao.getLinkByCategory(categoryt)
+        emitSource(getLinkByCategory.map { it.sortedBy { it.id}.asReversed().toMutableList() })
+    }
 
     val getFavoriteLink: LiveData<MutableList<LinkEnt>> = liveData {
         val linkEnt = accessDao.getAllFavoriteLinks()
-        emitSource(linkEnt.map { it?.sortedBy { it.id }?.asReversed()?.toMutableList() ?: mutableListOf() })
+        emitSource(linkEnt.map {
+            it?.sortedBy { it.id }?.asReversed()?.toMutableList() ?: mutableListOf()
+        })
     }
-
-    /*fun getLinkByCategory(categoryt:String ): LiveData<MutableList<LinkEnt>> = liveData {
-        val getLinkByCategory = accessDao.getLinkByCategory(categoryt)
-        emitSource(getLinkByCategory.map { it.sortedBy { it.id }.asReversed().toMutableList() })
-    }*/
-
-    suspend fun getLinkByCategory(categoryt:String )=accessDao.getLinkByCategory(categoryt)
 
 
     suspend fun saveLink(link: LinkEnt) = withContext(Dispatchers.IO) {

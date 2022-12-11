@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tvHeaderCategory"
             style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,21 +38,30 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="2dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/swipe"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llTitle"
         tools:itemCount="1"
         tools:listitem="@layout/item_category" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
+    <View
+        android:id="@+id/VLienal"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#E3DEDE"
+
+        app:layout_constraintTop_toBottomOf="@+id/rvCategory" />
+
+ <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:elevation="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvCategory">
+        app:layout_constraintTop_toBottomOf="@+id/VLienal">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
