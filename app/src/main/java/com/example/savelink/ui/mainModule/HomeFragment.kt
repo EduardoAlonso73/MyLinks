@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savelink.data.entities.CategoryEnt
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentHomeBinding
+import com.example.savelink.ui.SelectCtgModule.SelectCategory
 import com.example.savelink.ui.categoryModule.Adapter.CategoryAdapter
 import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
 import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
@@ -187,10 +188,11 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     }
 
     override fun bookAdA(linkEnt: LinkEnt) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val testCategoryEnt=CategoryEnt(category = "Medium")
-            SaveLinkApplication.databaseCategory.categoryLink().addCategoryLink(testCategoryEnt)
-        }
+        val fragment = SelectCategory()
+        fragment.show(
+            parentFragmentManager.beginTransaction(),
+            SelectCategory::class.java.simpleName
+        )
 
     }
 

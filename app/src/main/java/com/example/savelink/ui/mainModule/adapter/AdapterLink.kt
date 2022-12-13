@@ -16,6 +16,7 @@ import com.example.savelink.utils.IOnClickListener
 class AdapterLink(private var mLinks:MutableList<LinkEnt>, private val listener: IOnClickListener)
     : RecyclerView.Adapter<AdapterLink.ViewHolder>() {
     private lateinit var mContext: Context
+    private var selectedPosition = -1
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {

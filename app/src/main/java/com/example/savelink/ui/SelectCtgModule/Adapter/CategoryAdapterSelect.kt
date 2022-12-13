@@ -1,4 +1,4 @@
-package com.example.savelink.ui.categoryModule.Adapter
+package com.example.savelink.ui.SelectCtgModule.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,25 +9,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.savelink.R
 import com.example.savelink.data.entities.CategoryEnt
-import com.example.savelink.data.entities.LinkEnt
-import com.example.savelink.databinding.ItemCategoryBinding
-import com.example.savelink.databinding.ItemLinkBinding
-import com.example.savelink.utils.AuxOpenGraphCallback
-import com.example.savelink.utils.IOnCategoryListener
-import com.example.savelink.utils.IOnClickListener
+import com.example.savelink.databinding.ItemSelectCategoryBinding
+import com.example.savelink.utils.IOnCategorySelectListener
 
 
-class CategoryAdapter(private val listener: IOnCategoryListener) :
+class CategoryAdapterSelect(private val listener: IOnCategorySelectListener) :
     ListAdapter<CategoryEnt, RecyclerView.ViewHolder>(StoreDiffCallback()) {
     private lateinit var mContext: Context
-    private lateinit var binding: ItemCategoryBinding
-
+    private lateinit var binding: ItemSelectCategoryBinding
+    private var selectedPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         mContext = parent.context
-        val view =
-            LayoutInflater.from(mContext).inflate(R.layout.item_category, parent, false)
-        binding = ItemCategoryBinding.bind(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_select_category, parent, false)
+        binding = ItemSelectCategoryBinding.bind(view)
         return ViewHolder(view)
     }
 
@@ -36,20 +31,23 @@ class CategoryAdapter(private val listener: IOnCategoryListener) :
         with(holder as ViewHolder) {
             with(binding) {
                 setListener(itemLinks)
-                binding.chipChat.text = itemLinks.category
-
+                radioButton.text = itemLinks.category
+                radioButton.isChecked = position == selectedPosition
             }
-
         }
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = ItemCategoryBinding.bind(view)
+        val binding = ItemSelectCategoryBinding.bind(view)
         fun setListener(categoryEnt: CategoryEnt) {
-            binding.chipChat.setOnClickListener { listener.onClickCategory(categoryEnt) }
+            binding.radioButton.setOnClickListener {
+                selectedPosition=getAdapterPosition()
+                notifyDataSetChanged()}
 
         }
+
+
     }
 
 
