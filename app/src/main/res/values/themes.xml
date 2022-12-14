@@ -12,7 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name='android:navigationBarColor'>@color/purple_500</item>
+        <item name='android:navigationBarColor'>@color/white</item>
     </style>
 
     <style name="TransparentBottomSheetDialogTheme" parent="Theme.AppCompat.Light">
