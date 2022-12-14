@@ -2,6 +2,7 @@
     android:id="@+id/radioButton"
     android:layout_width="match_parent"
     android:text="Hola"
+    android:layout_marginStart="16dp"
     android:layout_height="wrap_content"/>
 
 

@@ -1,9 +1,11 @@
 package com.example.savelink.ui.SelectCtgModule.Adapter
 
 import android.content.Context
+import android.icu.text.Transliterator.Position
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,23 +29,31 @@ class CategoryAdapterSelect(private val listener: IOnCategorySelectListener) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemLinks = getItem(position)
+        val itemCategory = getItem(position)
         with(holder as ViewHolder) {
             with(binding) {
-                setListener(itemLinks)
-                radioButton.text = itemLinks.category
                 radioButton.isChecked = position == selectedPosition
+                setListener(itemCategory)
+                radioButton.text = itemCategory.category
+                //radioButton.isChecked=itemCategory.isChecked
+
+
+
             }
         }
     }
 
 
+
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemSelectCategoryBinding.bind(view)
         fun setListener(categoryEnt: CategoryEnt) {
+
             binding.radioButton.setOnClickListener {
                 selectedPosition=getAdapterPosition()
-                notifyDataSetChanged()}
+                notifyDataSetChanged()
+                listener.onSelectCategory(categoryEnt) }
 
         }
 

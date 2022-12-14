@@ -25,6 +25,7 @@ import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
 import com.example.savelink.utils.IOnCategoryListener
 import com.example.savelink.utils.IOnClickListener
 import com.example.savelink.utils.SaveLinkApplication
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,14 +59,26 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
 
     private fun setupInitViewModel() {
+       /* viewModelProvide.isAddBookToCategory.observe(viewLifecycleOwner){
+            if(it){
+                mAdapter.teses()
+            }
+        }*/
         setupViewModelGetLink()
         setupViewModelGetCategory()
         setupViewModeHeaderCtg()
+        setupViewModeResponse()
 
     }
     private  fun setupViewModeHeaderCtg(){
         viewModelProvide.headerCategory.observe(viewLifecycleOwner){
             mBinding.tvHeaderCategory.setText(it)
+        }
+    }
+    private  fun setupViewModeResponse(){
+        viewModelProvide.responseAction.observe(viewLifecycleOwner){
+            Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+
         }
     }
 
@@ -79,14 +92,18 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     private  fun setupViewModelGetLink(){
         viewModelProvide.getListLink().observe(viewLifecycleOwner) {
             mAdapter.submitList(it)
+            visibilityImgEmptry(it)
         }
     }
     private fun setupViewModelLinkByCategory(category:String){
         viewModelProvide.getListLinkCategory(category).observe(viewLifecycleOwner) {
-             mAdapter.submitList(it)
+            mAdapter.submitList(it)
         }
     }
 
+    private  fun visibilityImgEmptry(it:MutableList<LinkEnt>){
+        mBinding.imEmptry.visibility=if(it.isEmpty())View.VISIBLE else View.GONE
+    }
     /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
             ------- SETUP RECYCLER VIEW ---------
     -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* */
@@ -151,10 +168,7 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
 
     }
 
-    override fun isFavorite(linkEnt: LinkEnt) {
-        Toast.makeText(appContext, linkEnt.isFavorite.toString(), Toast.LENGTH_SHORT).show()
-        viewModelProvide.updateLinkFavorite(linkEnt)
-    }
+    override fun isFavorite(linkEnt: LinkEnt) { viewModelProvide.updateLinkFavorite(linkEnt) }
 
     override fun removeLink(linkEnt: LinkEnt) {
 
@@ -188,11 +202,12 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     }
 
     override fun bookAdA(linkEnt: LinkEnt) {
+        viewModelProvide.setlink(linkEnt)
         val fragment = SelectCategory()
-        fragment.show(
-            parentFragmentManager.beginTransaction(),
-            SelectCategory::class.java.simpleName
-        )
+        fragment.show(parentFragmentManager.beginTransaction(), SelectCategory::class.java.simpleName)
+
+
+
 
     }
 

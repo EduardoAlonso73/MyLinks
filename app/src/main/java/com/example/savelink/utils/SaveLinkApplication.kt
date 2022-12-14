@@ -18,20 +18,33 @@ class SaveLinkApplication:Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val MIGRATION_1_2=object:Migration(1,2){
+        val MIGRATION_LINK_DB_1_2=object:Migration(1,2){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE  SaveLinkEnt  ADD COLUMN category TEXT NOT NULL DEFAULT '' ")
+            }
+
+        }
+        val MIGRATION_LINK_DB_2_3=object:Migration(2,3){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE  SaveLinkEnt  ADD COLUMN isSavaToBook INTEGER NOT NULL DEFAULT 0 ")
             }
 
         }
 
         database=Room.databaseBuilder(this,
             SaveLinkDatabase::class.java,
-            "db_save_link").addMigrations(MIGRATION_1_2).build()
+            "db_save_link").addMigrations(MIGRATION_LINK_DB_1_2,MIGRATION_LINK_DB_2_3).build()
 
-        
+
+
+        val MIGRATION_CATEGORY_DB_1_2=object:Migration(1,2){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE  CategoryEnt  ADD COLUMN isChecked INTEGER NOT NULL DEFAULT 0 ")
+            }
+
+        }
         databaseCategory=Room.databaseBuilder(this,
-        CategoryDatabase::class.java,"db_category").build()
+        CategoryDatabase::class.java,"db_category").addMigrations(MIGRATION_CATEGORY_DB_1_2).build()
     }
-
+//isChecked
 }

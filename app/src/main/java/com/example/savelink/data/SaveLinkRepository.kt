@@ -37,8 +37,18 @@ class SaveLinkRepository {
         accessDao.savelink(link)
     }
 
+    suspend fun addCategory(category: CategoryEnt) = withContext(Dispatchers.IO) {
+        accessCategoryDao.addCategoryLink(category)
+    }
+
     suspend fun updateLinkFavorite(link: LinkEnt) = withContext(Dispatchers.IO) {
         accessDao.updatelink(link)
+    }
+    suspend fun updateLinkCategory(link: LinkEnt) = withContext(Dispatchers.IO) {
+        accessDao.updatelink(link)
+    }
+    suspend fun updateCheckCategory(category: CategoryEnt) = withContext(Dispatchers.IO) {
+        accessCategoryDao.updateCheckedCt(category)
     }
 
     suspend fun deleteLink(link: LinkEnt) = withContext(Dispatchers.IO) {

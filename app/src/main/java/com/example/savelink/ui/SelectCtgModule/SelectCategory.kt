@@ -11,8 +11,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.savelink.data.entities.CategoryEnt
+import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentSelectCategoryBinding
 import com.example.savelink.ui.SelectCtgModule.Adapter.CategoryAdapterSelect
+import com.example.savelink.ui.addCategory.AddCategory
+import com.example.savelink.ui.addCategory.AddCategoryViewModel
+import com.example.savelink.ui.addModule.AddDialogLinkFragment
 import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
 import com.example.savelink.utils.IOnCategorySelectListener
 
@@ -24,7 +28,9 @@ class SelectCategory : BottomSheetDialogFragment(), IOnCategorySelectListener {
     private lateinit var mAdapterCategorySelect: CategoryAdapterSelect
     private lateinit var mGridLayout: GridLayoutManager
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+    private lateinit var selectLink:LinkEnt
     private val viewModelProvide: GetLinkViewModel by lazy {  ViewModelProvider(requireActivity())[GetLinkViewModel::class.java] }
+    private   val categoryViewModel by lazy { ViewModelProvider(requireActivity())[AddCategoryViewModel::class.java] }
     private var mBinding: FragmentSelectCategoryBinding? = null
 
 
@@ -35,7 +41,6 @@ class SelectCategory : BottomSheetDialogFragment(), IOnCategorySelectListener {
                 .apply { setContentView(fragmentCart.root) }
             bottomSheetBehavior = BottomSheetBehavior.from(fragmentCart.root.parent as View)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-
             setupRecyclerView()
             setupViewModelGetCategory()
             setupBtn()
@@ -44,10 +49,6 @@ class SelectCategory : BottomSheetDialogFragment(), IOnCategorySelectListener {
         return super.onCreateDialog(savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
 
 
@@ -56,12 +57,18 @@ class SelectCategory : BottomSheetDialogFragment(), IOnCategorySelectListener {
             mAdapterCategorySelect.submitList(it)
 
         }
+        viewModelProvide.link.observe(requireActivity()){
+            selectLink=it
+        }
     }
 
     private fun setupBtn() {
         mBinding?.let {
             //TODO:Here i will do the query to add in the database
-            it.btnNewCategory.setOnClickListener { Toast.makeText(requireContext(), "HOla mune", Toast.LENGTH_SHORT).show()  }
+            it.btnNewCategory.setOnClickListener {
+                AddCategory().show(parentFragmentManager, AddCategory::class.java.simpleName)
+                dismiss()
+            }
         }
 
     }
@@ -80,6 +87,10 @@ class SelectCategory : BottomSheetDialogFragment(), IOnCategorySelectListener {
     }
 
     override fun onSelectCategory(categoryEnt: CategoryEnt) {
+        selectLink.category=categoryEnt.category
+        viewModelProvide.updateLinkCategoty(selectLink)
+        categoryViewModel.updateCheckedCt(categoryEnt)
+
 
     }
 

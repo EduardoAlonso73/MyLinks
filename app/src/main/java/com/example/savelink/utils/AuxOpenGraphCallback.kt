@@ -20,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AuxOpenGraphCallback(val context: Context, val binding: ItemLinkBinding) : OpenGraphCallback {
-    var isLoading: Boolean = true
     val openGraphParser by lazy {
         OpenGraphParser(
             listener = this,
@@ -34,7 +33,6 @@ class AuxOpenGraphCallback(val context: Context, val binding: ItemLinkBinding) :
             with(binding) {
                 linkTitle.text = openGraphResult.title
                 linkDescription.text = openGraphResult.description
-                linkSiteName.text = if(openGraphResult.siteName.equals("null"))"No Site name " else openGraphResult.siteName
 
             }
             Glide.with(context)

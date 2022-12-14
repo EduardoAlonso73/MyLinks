@@ -40,8 +40,8 @@ class AddDialogLinkFragment: DialogFragment(), DialogInterface.OnShowListener  {
 
 
     override fun onShow(dialog: DialogInterface?) {
-        val dialog=dialog as? AlertDialog
-        dialog?.let {AlertDialog->
+        val dialogInstance=dialog as? AlertDialog
+        dialogInstance?.let {AlertDialog->
             positiveBtn=AlertDialog.getButton(Dialog.BUTTON_POSITIVE)
             negativeBtn=AlertDialog.getButton(Dialog.BUTTON_NEGATIVE)
             negativeBtn?.setOnClickListener{ dismiss()}
