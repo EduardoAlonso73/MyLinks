@@ -1,4 +1,4 @@
-package com.example.savelink.ui.addModule.addViewModel
+package com.example.savelink.ui.addLinkModule.addLinkViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

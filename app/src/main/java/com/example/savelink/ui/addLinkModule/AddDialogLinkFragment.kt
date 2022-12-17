@@ -1,4 +1,4 @@
-package com.example.savelink.ui.addModule
+package com.example.savelink.ui.addLinkModule
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentDialogAddBinding
-import com.example.savelink.ui.addModule.addViewModel.LinkAddViewModel
+import com.example.savelink.ui.addLinkModule.addLinkViewModel.LinkAddViewModel
 
 class AddDialogLinkFragment: DialogFragment(), DialogInterface.OnShowListener  {
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="shape_chip">#A9F6BF</color>
+    <color name="background_line">#BAF6D2</color>
+    <color name="chip_stroke_line">#6DEFBB</color>
+    <color name="white">#131313</color>
+    <color name="black">#FFFFFF</color>
+    <color name="color_icon_options">#6DEFBB</color>
+
+
+    <color name="green_700">#131313</color>
+    <color name="shape_btn_add_category">#14AA7D</color>
+
+
+</resources>

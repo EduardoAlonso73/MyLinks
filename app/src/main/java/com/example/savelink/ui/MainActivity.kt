@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.savelink.R
 import com.example.savelink.databinding.ActivityMainBinding
-import com.example.savelink.ui.addModule.AddDialogLinkFragment
+import com.example.savelink.ui.addLinkModule.AddDialogLinkFragment
 import com.example.savelink.ui.favoriteModule.FavoriteFragment
-import com.example.savelink.ui.mainModule.HomeFragment
+import com.example.savelink.ui.homeModule.HomeFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,11 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         mActivityFragment = homeFragment
         with(mFragmentManager) {
-            beginTransaction().add(
-                R.id.hostFragments,
-                favoriteFragment,
-                favoriteFragment::class.java.name
-            ).hide(favoriteFragment).commit()
+            beginTransaction().add(R.id.hostFragments, favoriteFragment, favoriteFragment::class.java.name).hide(favoriteFragment).commit()
             beginTransaction().add(R.id.hostFragments, homeFragment, homeFragment::class.java.name)
                 .commit()
         }

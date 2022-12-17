@@ -1,11 +1,9 @@
-package com.example.savelink.ui.mainModule.adapter
+package com.example.savelink.ui.addLinkModule
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.savelink.R
 import com.example.savelink.data.entities.LinkEnt
@@ -14,39 +12,38 @@ import com.example.savelink.utils.AuxOpenGraphCallback
 import com.example.savelink.utils.IOnClickListener
 
 
-class ListLinkAdapter(private var listener: IOnClickListener) :
-    ListAdapter<LinkEnt, RecyclerView.ViewHolder>(StoreDiffCallback()) { 
+class AdapterLink(private var mLinks:MutableList<LinkEnt>, private val listener: IOnClickListener)
+    : RecyclerView.Adapter<AdapterLink.ViewHolder>() {
     private lateinit var mContext: Context
-    private lateinit var binding: ItemLinkBinding
+    private var selectedPosition = -1
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder {
         mContext = parent.context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_link, parent, false)
-        binding = ItemLinkBinding.bind(view)
-        return ViewHolder(view)
+        return  ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemLinks = getItem(position)
-        with(holder as ViewHolder) {
+    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+        val itemLinks = mLinks[position]
+        with(holder) {
             with(binding) {
                 setListener(itemLinks)
                 binding.card.visibility=View.INVISIBLE
                 binding.viewLoading.visibility=View.VISIBLE
-                if (itemLinks.category.isNotEmpty()){ linkSiteName.text = itemLinks.category }
-                else binding.linkSiteName.visibility=View.INVISIBLE
-
-               if(itemLinks.isSavaToBook) binding.ibBookAdd.setImageDrawable(mContext.getDrawable(R.drawable.bookmank_select))
                 AuxOpenGraphCallback(mContext, binding).apply {
                     openGraphParser.parse(itemLinks.link)
                     cbIsFavorite.isChecked=itemLinks.isFavorite
                 }
             }
-
         }
     }
+    fun setList(list: MutableList<LinkEnt>){
+        this.mLinks=list
+       notifyDataSetChanged()
+    }
 
+    override fun getItemCount(): Int = mLinks.size
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -62,15 +59,6 @@ class ListLinkAdapter(private var listener: IOnClickListener) :
         }
     }
 
-
-    class StoreDiffCallback : DiffUtil.ItemCallback<LinkEnt>() {
-        override fun areItemsTheSame(oldItem: LinkEnt, newItem: LinkEnt): Boolean =
-            oldItem.id == newItem.id
-
-        override fun areContentsTheSame(oldItem: LinkEnt, newItem: LinkEnt): Boolean =
-            oldItem == newItem
-    }
-
-
 }
+
 

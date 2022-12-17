@@ -13,4 +13,7 @@
     <color name="shape_chip">#85D1F3DB</color>
     <color name="background_line">#E3DEDE</color>
     <color name="chip_stroke_line">#D1D1D1</color>
+    <color name="color_icon_options">#878282</color>
+    <color name="chip_text">#424242</color>
+    <color name="shape_btn_add_category">#CBF3F3F3</color>
 </resources>

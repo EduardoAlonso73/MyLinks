@@ -9,12 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.savelink.R
 import com.example.savelink.data.entities.CategoryEnt
-import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.ItemCategoryBinding
-import com.example.savelink.databinding.ItemLinkBinding
-import com.example.savelink.utils.AuxOpenGraphCallback
 import com.example.savelink.utils.IOnCategoryListener
-import com.example.savelink.utils.IOnClickListener
+
 
 
 class CategoryAdapter(private val listener: IOnCategoryListener) :

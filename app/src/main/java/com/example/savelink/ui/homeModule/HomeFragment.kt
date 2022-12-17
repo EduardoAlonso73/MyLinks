@@ -1,4 +1,4 @@
-package com.example.savelink.ui.mainModule
+package com.example.savelink.ui.homeModule
 
 import android.app.AlertDialog
 import android.content.ClipData
@@ -21,15 +21,11 @@ import com.example.savelink.databinding.FragmentHomeBinding
 import com.example.savelink.ui.SelectCtgModule.SelectCategory
 import com.example.savelink.ui.addCategory.AddCategory
 import com.example.savelink.ui.categoryModule.Adapter.CategoryAdapter
-import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
-import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
+import com.example.savelink.ui.homeModule.adapter.ListLinkAdapter
+import com.example.savelink.ui.homeModule.homeViewModel.GetLinkViewModel
 import com.example.savelink.utils.IOnCategoryListener
 import com.example.savelink.utils.IOnClickListener
-import com.example.savelink.utils.SaveLinkApplication
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
     private lateinit var mAdapter: ListLinkAdapter

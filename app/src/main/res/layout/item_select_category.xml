@@ -4,6 +4,7 @@
     android:id="@+id/radioButton"
     android:layout_width="match_parent"
     tools:text="Category"
+    android:textColor="@color/black"
     android:background="?attr/selectableItemBackground"
     android:button="@drawable/status_check_category"
     android:layout_marginStart="30dp"

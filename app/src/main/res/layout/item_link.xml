@@ -72,6 +72,7 @@
                     android:background="@drawable/shape_type"
                     android:paddingHorizontal="@dimen/common_padding_min"
                     android:text="@string/text_category"
+                    android:textColor="@color/chip_text"
                     app:layout_constraintEnd_toStartOf="@+id/linkImage"
                     app:layout_constraintStart_toStartOf="@id/linkDescription"
                     app:layout_constraintTop_toBottomOf="@+id/linkDescription" />
