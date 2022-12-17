@@ -23,13 +23,13 @@
 
         <TextView
             android:id="@+id/tvHeaderCategory"
-            style="@style/TextAppearance.MaterialComponents.Headline4"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
-            android:text="Favorites"
+            android:layout_marginStart="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:layout_marginBottom="24dp"
+            android:text="@string/text_favorites"
             android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
@@ -38,7 +38,7 @@
         android:id="@+id/VLienal"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="#E3DEDE"
+        android:background="@color/background_line"
         app:layout_constraintTop_toBottomOf="@+id/llTitle" />
 
 

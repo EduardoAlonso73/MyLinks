@@ -3,7 +3,7 @@
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:shape="rectangle">
 
-<solid android:color="#EDD4EF"/>
+<solid android:color="@color/shape_chip"/>
 <corners android:radius="10dp"/>
 
 

@@ -34,13 +34,13 @@
         android:id="@+id/fbAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="6dp"
+        android:layout_marginHorizontal="@dimen/common_padding_min"
+        android:layout_marginVertical="@dimen/common_padding_min"
         android:elevation="0dp"
         android:src="@drawable/ic_add_link"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/button_add_links" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

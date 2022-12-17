@@ -5,4 +5,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="category_text">"  "%1$s</string>
+    <string name="text_full_example">Lorem ipsum dolor sit amet consectetur, adipiscing elit lacinia sit amet consectetur, adipiscing elit lacinia.</string>
+    <string name="button_add_links">Floating action button to add links</string>
+    <string name="btn_text_add">Agregar</string>
+    <string name="hit_text_category">Category</string>
+    <string name="text_headline">Agregue category</string>
+    <string name="hint_link">Link</string>
+    <string name="text_favorites">Favorites</string>
+    <string name="title_save_link_to">Save link to..</string>
+    <string name="text_category">Category</string>
+    <string name="description_btn_add_to_book">TODO</string>
+    <string name="description_btn_remove">Remove link</string>
+    <string name="description_btn_share_link">share link</string>
 </resources>

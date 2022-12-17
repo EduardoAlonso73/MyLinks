@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         tools:text="Category"
         app:chipStrokeWidth="0.5dp"
-        app:chipStrokeColor="#D1D1D1"
+        app:chipStrokeColor="@color/chip_stroke_line"
         app:chipBackgroundColor="@color/white"
         android:layout_marginHorizontal="2dp"
         app:layout_constraintEnd_toEndOf="parent"
