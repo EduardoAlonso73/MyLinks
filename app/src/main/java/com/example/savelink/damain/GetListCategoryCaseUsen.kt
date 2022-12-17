@@ -8,4 +8,5 @@ import com.example.savelink.data.entities.LinkEnt
 class GetListCategoryCaseUsen {
     private val domainRepository by lazy { SaveLinkRepository()}
     fun getCategory(): LiveData<MutableList<CategoryEnt>> =domainRepository.listAllCategory
+    fun getCategorySelect(): LiveData<MutableList<CategoryEnt>> =domainRepository.listAllCategorySelect
 }

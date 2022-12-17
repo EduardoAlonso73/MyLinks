@@ -36,10 +36,10 @@ class ListLinkAdapter(private var listener: IOnClickListener) :
                 binding.viewLoading.visibility=View.VISIBLE
                 if (itemLinks.category.isNotEmpty()){ linkSiteName.text = itemLinks.category }
                 else binding.linkSiteName.visibility=View.INVISIBLE
+
                if(itemLinks.isSavaToBook) binding.ibBookAdd.setImageDrawable(mContext.getDrawable(R.drawable.bookmank_select))
                 AuxOpenGraphCallback(mContext, binding).apply {
                     openGraphParser.parse(itemLinks.link)
-                    //progressCircular.visibility=if(isLoading)View.VISIBLE else View.INVISIBLE
                     cbIsFavorite.isChecked=itemLinks.isFavorite
                 }
             }

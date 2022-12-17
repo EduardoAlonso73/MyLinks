@@ -9,42 +9,51 @@ import com.example.savelink.data.database.SaveLinkDao
 import com.example.savelink.data.database.SaveLinkDatabase
 import java.util.Objects
 
-class SaveLinkApplication:Application() {
-    companion object{
-        lateinit var database:SaveLinkDatabase
+class SaveLinkApplication : Application() {
+    companion object {
+        lateinit var database: SaveLinkDatabase
         lateinit var databaseCategory: CategoryDatabase
     }
 
     override fun onCreate() {
         super.onCreate()
 
-        val MIGRATION_LINK_DB_1_2=object:Migration(1,2){
+        val MIGRATION_LINK_DB_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE  SaveLinkEnt  ADD COLUMN category TEXT NOT NULL DEFAULT '' ")
             }
 
         }
-        val MIGRATION_LINK_DB_2_3=object:Migration(2,3){
+        val MIGRATION_LINK_DB_2_3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE  SaveLinkEnt  ADD COLUMN isSavaToBook INTEGER NOT NULL DEFAULT 0 ")
             }
 
         }
+        val MIGRATION_LINK_DB_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE  SaveLinkEnt  ADD COLUMN position INTEGER NOT NULL DEFAULT -1 ")
+            }
 
-        database=Room.databaseBuilder(this,
+        }
+
+        database = Room.databaseBuilder(
+            this,
             SaveLinkDatabase::class.java,
-            "db_save_link").addMigrations(MIGRATION_LINK_DB_1_2,MIGRATION_LINK_DB_2_3).build()
+            "db_save_link"
+        ).addMigrations(MIGRATION_LINK_DB_1_2, MIGRATION_LINK_DB_2_3,MIGRATION_LINK_DB_3_4).build()
 
 
-
-        val MIGRATION_CATEGORY_DB_1_2=object:Migration(1,2){
+        val MIGRATION_CATEGORY_DB_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE  CategoryEnt  ADD COLUMN isChecked INTEGER NOT NULL DEFAULT 0 ")
             }
 
         }
-        databaseCategory=Room.databaseBuilder(this,
-        CategoryDatabase::class.java,"db_category").addMigrations(MIGRATION_CATEGORY_DB_1_2).build()
+        databaseCategory = Room.databaseBuilder(
+            this,
+            CategoryDatabase::class.java, "db_category"
+        ).addMigrations(MIGRATION_CATEGORY_DB_1_2).build()
     }
 //isChecked
 }

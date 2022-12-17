@@ -40,6 +40,7 @@ class GetLinkViewModel : ViewModel() {
 
 
     fun getListCategory(): LiveData<MutableList<CategoryEnt>> = getListCategoCaseUse.getCategory()
+    fun getListCategorySelect(): LiveData<MutableList<CategoryEnt>> = getListCategoCaseUse.getCategorySelect()
 
     fun updateLinkFavorite(linkEnt: LinkEnt) {
         linkEnt.isFavorite = !linkEnt.isFavorite

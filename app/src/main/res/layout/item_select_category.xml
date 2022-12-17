@@ -1,9 +1,14 @@
+
+
 <RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:id="@+id/radioButton"
     android:layout_width="match_parent"
     android:text="Hola"
-    android:layout_marginStart="16dp"
-    android:layout_height="wrap_content"/>
+    android:background="?attr/selectableItemBackground"
+    android:button="@drawable/status_check_category"
+    android:layout_marginStart="30dp"
+    android:layout_height="wrap_content" />
 
 
 

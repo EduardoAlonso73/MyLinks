@@ -19,6 +19,7 @@ import com.example.savelink.data.entities.CategoryEnt
 import com.example.savelink.data.entities.LinkEnt
 import com.example.savelink.databinding.FragmentHomeBinding
 import com.example.savelink.ui.SelectCtgModule.SelectCategory
+import com.example.savelink.ui.addCategory.AddCategory
 import com.example.savelink.ui.categoryModule.Adapter.CategoryAdapter
 import com.example.savelink.ui.mainModule.adapter.ListLinkAdapter
 import com.example.savelink.ui.mainModule.mainViewModel.GetLinkViewModel
@@ -51,6 +52,7 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
         setupRecyclerView()
         setupInitViewModel()
         swipeRefres()
+        setupBtns()
     }
 
 
@@ -152,6 +154,12 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
         }
     }
 
+    private fun setupBtns(){
+        mBinding.btnNewCategory.setOnClickListener {
+            AddCategory().show(parentFragmentManager, AddCategory::class.java.simpleName)
+        }
+    }
+
 
     /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
               ------- OVERRIDE FUNCTION ---------
@@ -206,8 +214,7 @@ class HomeFragment : Fragment(), IOnClickListener,IOnCategoryListener {
         val fragment = SelectCategory()
         fragment.show(parentFragmentManager.beginTransaction(), SelectCategory::class.java.simpleName)
 
-
-
+        //AddCategory11().show(parentFragmentManager, AddCategory11::class.java.simpleName)
 
     }
 

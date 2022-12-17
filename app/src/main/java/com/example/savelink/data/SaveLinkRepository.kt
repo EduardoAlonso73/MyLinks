@@ -64,6 +64,10 @@ class SaveLinkRepository {
         val categoryEnt = accessCategoryDao.getAllCategory()
         emitSource(categoryEnt.map { it.sortedBy { it.id }.asReversed().toMutableList() })
     }
+ val listAllCategorySelect: LiveData<MutableList<CategoryEnt>> = liveData {
+        val categoryEnt = accessCategoryDao.getAllCategory()
+        emitSource(categoryEnt.map { it.sortedBy { it.id }.toMutableList() })
+    }
 
 
 }

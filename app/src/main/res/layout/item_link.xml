@@ -45,7 +45,7 @@
                     android:layout_marginVertical="10dp"
                     android:maxLines="1"
                     android:text="Cargando..."
-                    android:fontFamily="sans-serif-condensed"
+                    android:fontFamily="sans-serif"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold"

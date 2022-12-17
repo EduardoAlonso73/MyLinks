@@ -2,6 +2,7 @@ package com.example.savelink.ui.SelectCtgModule.Adapter
 
 import android.content.Context
 import android.icu.text.Transliterator.Position
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ class CategoryAdapterSelect(private val listener: IOnCategorySelectListener) :
     ListAdapter<CategoryEnt, RecyclerView.ViewHolder>(StoreDiffCallback()) {
     private lateinit var mContext: Context
     private lateinit var binding: ItemSelectCategoryBinding
-    private var selectedPosition = -1
+     var selectedPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         mContext = parent.context
@@ -34,17 +35,11 @@ class CategoryAdapterSelect(private val listener: IOnCategorySelectListener) :
             with(binding) {
                 radioButton.isChecked = position == selectedPosition
                 setListener(itemCategory)
-                radioButton.text = itemCategory.category
-                //radioButton.isChecked=itemCategory.isChecked
-
-
+                radioButton.text = mContext.getString(R.string.category_text,itemCategory.category)
 
             }
         }
     }
-
-
-
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemSelectCategoryBinding.bind(view)
@@ -53,7 +48,8 @@ class CategoryAdapterSelect(private val listener: IOnCategorySelectListener) :
             binding.radioButton.setOnClickListener {
                 selectedPosition=getAdapterPosition()
                 notifyDataSetChanged()
-                listener.onSelectCategory(categoryEnt) }
+                Log.i("selectedPosition",selectedPosition.toString())
+                listener.onSelectCategory(categoryEnt,selectedPosition) }
 
         }
 
